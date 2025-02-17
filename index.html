@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Mars</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: black;
+            color: white;
+        }
+        #container {
+            position: relative;
+            height: 500px;
+        }
+        #magicButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Trouve le message caché !</h1>
+    <p>Essaye de cliquer sur le bouton... 😈</p>
+
+    <div id="container">
+        <button id="magicButton">Clique-moi !</button>
+    </div>
+
+    <p>Passages de la souris : <span id="count">0</span></p>
+
+    <script>
+        let button = document.getElementById("magicButton");
+        let countSpan = document.getElementById("count");
+        let count = 0;
+        const maxCount = 20; // Modifier selon la distance entre deux étoiles
+
+        function moveButton(event) {
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            button.style.left = x + "px";
+            button.style.top = y + "px";
+
+            count++;
+            countSpan.innerText = count;
+
+            if (count >= maxCount) {
+                // Déclencher le téléchargement du fichier audio
+                let audioLink = document.createElement("a");
+                audioLink.href = "signal_proxima.wav"; // Lien vers le fichier audio caché
+                audioLink.download = "signal_proxima.wav";
+                document.body.appendChild(audioLink);
+                audioLink.click();
+                document.body.removeChild(audioLink);
+                alert("Un mystérieux fichier audio a été téléchargé...");
+            }
+        }
+
+        button.addEventListener("mouseover", moveButton);
+    </script>
+
+</body>
+</html>
