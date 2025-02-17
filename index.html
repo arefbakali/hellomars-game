@@ -41,32 +41,30 @@
         <button id="magicButton">اضغط هنا !</button>
     </div>
 
-    
-
     <script>
         let button = document.getElementById("magicButton");
-        let countSpan = document.getElementById("count");
         let count = 0;
-        const maxCount = 5; // Modifier selon la distance entre deux étoiles
+        const maxCount = 5; // Après 5 passages, le fichier se télécharge
 
         function moveButton(event) {
-            let x = Math.random() * (window.innerWidth - 100);
-            let y = Math.random() * (window.innerHeight - 50);
-            button.style.left = x + "px";
-            button.style.top = y + "px";
+            if (count < maxCount) {
+                let x = Math.random() * (window.innerWidth - 100);
+                let y = Math.random() * (window.innerHeight - 50);
+                button.style.left = x + "px";
+                button.style.top = y + "px";
 
-            count++;
-            countSpan.innerText = count;
+                count++;
 
-            if (count >= maxCount) {
-                // Déclencher le téléchargement du fichier audio
-                let audioLink = document.createElement("a");
-                audioLink.href = "signal_proxima.wav"; // Lien vers le fichier audio caché
-                audioLink.download = "signal_proxima.wav";
-                document.body.appendChild(audioLink);
-                audioLink.click();
-                document.body.removeChild(audioLink);
-                alert("Un mystérieux fichier audio a été téléchargé...");
+                if (count === maxCount) {
+                    // Déclencher le téléchargement du fichier audio après le 5ème passage
+                    let audioLink = document.createElement("a");
+                    audioLink.href = "signal_proxima.wav"; // Lien vers le fichier audio caché
+                    audioLink.download = "signal_proxima.wav";
+                    document.body.appendChild(audioLink);
+                    audioLink.click();
+                    document.body.removeChild(audioLink);
+                    alert("Un mystérieux fichier audio a été téléchargé...");
+                }
             }
         }
 
